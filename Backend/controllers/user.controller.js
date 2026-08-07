@@ -2,7 +2,6 @@ const userModel = require('../models/user.model');
 const userService = require('../services/user.service')
 const { validationResult } = require('express-validator')
 
-
 async function registerUser(req, res, next){
     const errors = validationResult(req)
 
@@ -55,10 +54,18 @@ async function loginUser(req, res, next){
 
     const token = user.generateAuthToken()
 
+    res.cookie('token', token)
+
     res.status(200).json({ token, user })
+}
+
+async function getUserProfile(req, res, next){
+    const user = req.user
+    res.status(200).json({ user })
 }
 
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    getUserProfile
 }
