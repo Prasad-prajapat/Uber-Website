@@ -30,6 +30,9 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+// These methods belong to a single document (object).
+// They are called after fetching or creating a document
+
 userSchema.methods.generateAuthToken = function(){
     const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET)
     return token;
@@ -38,6 +41,9 @@ userSchema.methods.generateAuthToken = function(){
 userSchema.methods.comparePassword = async function(password){
     return await bcrypt.compare(password, this.password);
 }
+
+// Static methods belong to the Model, not to a document.
+// They are called directly using the model.
 
 userSchema.statics.hashPassword = async function(password){
     return await bcrypt.hash(password, 10);
