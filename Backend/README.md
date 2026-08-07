@@ -257,3 +257,149 @@ Example response:
   }
 }
 ```
+
+## Captain Login Endpoint
+
+## POST /captains/login
+
+Authenticates an existing captain in the system.
+
+### Description
+This endpoint logs in a captain using their email and password.
+
+### Request Body
+The request body should be a JSON object in the following format:
+
+- `email` (string, required): Captain's email address (must be valid)
+- `password` (string, required): Captain's password (minimum 8 characters)
+
+Example request body:
+
+```json
+{
+  "email": "ali@example.com",
+  "password": "password123"
+}
+```
+
+### Response
+#### Success
+- Status Code: 200 OK
+- Returns a JSON object with:
+  - `captain` (object)
+    - `fullname` (object)
+      - `firstname` (string) Captain's first name
+      - `lastname` (string) Captain's last name
+    - `email` (string) Captain's email address
+    - `vehicle` (object)
+      - `color` (string) Vehicle color
+      - `plateNumber` (string) Vehicle plate number
+      - `capacity` (number) Vehicle capacity
+      - `vehicleType` (string) Vehicle type
+  - `token` (string): JWT Token
+
+Example response:
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "captain": {
+    "fullname": {
+      "firstname": "Ali",
+      "lastname": "Khan"
+    },
+    "email": "ali@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plateNumber": "ABC-123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+## Captain Profile Endpoint
+
+## GET /captains/profile
+
+Retrieves the authenticated captain's profile information.
+
+### Description
+This endpoint returns the profile details of the currently logged-in captain.
+
+### Request Headers
+- `Authorization` (string, required): Bearer token received after captain login or registration
+
+Example request header:
+
+```http
+Authorization: Bearer <jwt_token>
+```
+
+### Response
+#### Success
+- Status Code: 200 OK
+- Returns a JSON object with:
+  - `captain` (object)
+    - `fullname` (object)
+      - `firstname` (string) Captain's first name
+      - `lastname` (string) Captain's last name
+    - `email` (string) Captain's email address
+    - `vehicle` (object)
+      - `color` (string) Vehicle color
+      - `plateNumber` (string) Vehicle plate number
+      - `capacity` (number) Vehicle capacity
+      - `vehicleType` (string) Vehicle type
+
+Example response:
+
+```json
+{
+  "captain": {
+    "fullname": {
+      "firstname": "Ali",
+      "lastname": "Khan"
+    },
+    "email": "ali@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plateNumber": "ABC-123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+## Captain Logout Endpoint
+
+## GET /captains/logout
+
+Logs out the authenticated captain from the system.
+
+### Description
+This endpoint clears the authentication cookie and invalidates the current token.
+
+### Request Headers
+- `Authorization` (string, required): Bearer token received after captain login or registration
+
+Example request header:
+
+```http
+Authorization: Bearer <jwt_token>
+```
+
+### Response
+#### Success
+- Status Code: 200 OK
+- Returns a JSON object with:
+  - `message` (string): Confirmation that the captain logged out successfully
+
+Example response:
+
+```json
+{
+  "message": "Captain logged out successfully"
+}
+```
