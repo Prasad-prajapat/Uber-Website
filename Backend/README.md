@@ -178,3 +178,82 @@ Authorization: Bearer <jwt_token>
 - Status Code: 200 OK
 - Returns a JSON object with:
   - `message` (string): Confirmation that the user logged out successfully
+
+## Captain Registration Endpoint
+
+## POST /captains/register
+
+Registers a new captain in the system.
+
+### Description
+This endpoint creates a new captain account with personal details, email, password, and vehicle information.
+
+### Request Body
+The request body should be a JSON object in the following format:
+
+- `fullname` (object):
+  - `firstname` (string, required): Captain's first name (minimum 3 characters)
+  - `lastname` (string, optional): Captain's last name
+- `email` (string, required): Captain's email address (must be valid)
+- `password` (string, required): Captain's password (minimum 8 characters)
+- `vehicle` (object, required):
+  - `color` (string, required): Vehicle color
+  - `plateNumber` (string, required): Vehicle plate number
+  - `capacity` (number, required): Vehicle passenger capacity (minimum 1)
+  - `vehicleType` (string, required): Vehicle type (car, bike, or auto)
+
+Example request body:
+
+```json
+{
+  "fullname": {
+    "firstname": "Ali",
+    "lastname": "Khan"
+  },
+  "email": "ali@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "Black",
+    "plateNumber": "ABC-123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Response
+#### Success
+- Status Code: 201 Created
+- Returns a JSON object with:
+  - `captain` (object)
+    - `fullname` (object)
+      - `firstname` (string) Captain's first name
+      - `lastname` (string) Captain's last name
+    - `email` (string) Captain's email address
+    - `vehicle` (object)
+      - `color` (string) Vehicle color
+      - `plateNumber` (string) Vehicle plate number
+      - `capacity` (number) Vehicle capacity
+      - `vehicleType` (string) Vehicle type
+  - `token` (string): JWT Token
+
+Example response:
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "captain": {
+    "fullname": {
+      "firstname": "Ali",
+      "lastname": "Khan"
+    },
+    "email": "ali@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plateNumber": "ABC-123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
