@@ -13,7 +13,7 @@ const Riding = () => {
 
             <div className='h-1/2 p-4'>
                 <div className='flex items-center justify-between'>
-                    <img className='h-12' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUDn_DoJE_YZWoeBCd6g6hOzVZGfRqCznvil2Ej5Hu85Wp9y0aLBqGrLQ&s=10" alt="" />
+                    <img className='h-12' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU8TFJ7iUwyhF0_LOmPpst5aFLBQUYvRcuREn63JTVvg&s=10" alt="" />
                     <div className='text-right'>
                         <h2 className='text-lg font-medium'>Aayush</h2>
                         <h4 className='text-xl font-semibold -mt-1 -mb-1'>MH19 CH 4201</h4>
