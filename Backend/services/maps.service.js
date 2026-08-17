@@ -1,4 +1,5 @@
 const axios = require('axios')
+const captainModel = require('../models/captain.model')
 
 async function getAddressCoordinate(address){
 
@@ -6,21 +7,24 @@ async function getAddressCoordinate(address){
 
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`
 
-    // console.log("URL:", url);
-
-        const response = await axios.get(url)
 
         // console.log("GOOGLE RESPONSE:", response.data);
 
-        if (response.data.status !== 'OK') {
-            throw new Error("Unable to find location");
-        }
-
-        const location = response.data.results[0].geometry.location
-            return {
-                ltd: location.lat,
-                lng: location.lng
+        try {
+            const response = await axios.get(url);
+            if (response.data.status === 'OK') {
+                const location = response.data.results[ 0 ].geometry.location;
+                return {
+                    ltd: location.lat,
+                    lng: location.lng
+                };
+            } else {
+                throw new Error('Unable to fetch coordinates');
             }
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
 } 
 
 async function getDistanceTime(origin, destination){
@@ -78,8 +82,26 @@ async function getAutoCompleteSuggestions(input){
     }
 }
 
+async function getCaptainsInTheRadius(ltd, lng, radius){
+
+    // radius in Km
+
+    const captains = await captainModel.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [ [ ltd, lng ], radius / 6371 ]
+            }
+        }
+    });
+
+    // console.log("FOUND CAPTAINS:", captains)
+
+    return captains;
+}
+
 module.exports = {
     getAddressCoordinate,
     getDistanceTime,
-    getAutoCompleteSuggestions
+    getAutoCompleteSuggestions,
+    getCaptainsInTheRadius
 }
