@@ -55,15 +55,6 @@ const Riding = () => {
                     </div>
                 </div>
 
-                {/* {ride && (
-                    //Display ride data
-                    <div>
-                        <h2>Ride ID: {ride.id}</h2>
-                        <p>Pickup Location: {ride.origin}</p>
-                        <p>Destination: {ride.destination}</p>
-                    </div>
-                )} */}
-
                 <button className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>Make a Payment</button>
             </div>
         </div>

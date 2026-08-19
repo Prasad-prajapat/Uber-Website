@@ -51,7 +51,6 @@ const FinishRide = (props) => {
 
             </div>
 
-
         </div>
     )
 }
